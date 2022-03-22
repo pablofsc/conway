@@ -1,5 +1,5 @@
 html {
-    background-color: grey;
+    background-color: #1D2D50;
 }
 
 body {
@@ -8,13 +8,24 @@ body {
 
 .cell {
     border-radius: 0;
-    border-width: 0;
+    border-width: 1px;
+    border-color: #1D2D50;
+    border-style: solid;
     width: 10px;
     height: 10px;
-    margin: 1px;
+    margin: 0;
     padding: 0;
     line-height: 0;
     box-sizing: border-box;
+
+    background-color: #1E5F74;
+}
+
+.cell:active {
+    border-radius: 0;
+    border-width: 1px;
+    border-color: #1D2D50;
+    border-style: solid;
 }
 
 #container-table {
