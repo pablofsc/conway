@@ -28,11 +28,23 @@ body {
     border-style: solid;
 }
 
-#container-table {
-    line-height: 0;
-    background-color: inherit;
+#container-controls {
+    background-color: #133B5C;
+    padding: 0px;
+    border-radius: 20px;
+    margin: 20px 0 20px 0;
 }
 
-#container-controls {
-    background-color: inherit;
+#container-table {
+    background-color: #133B5C;
+    padding: 20px;
+    border-radius: 20px;
+
+    line-height: 0;
+}
+
+.pageTitle {
+    font-family: 'Teko', sans-serif;
+    font-size: 4em;
+    color: #FCDAB7;
 }
