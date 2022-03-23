@@ -1,6 +1,6 @@
 var gridHeight = 75;
 var gridWidth = 100;
-var waitTimeBetweenCycles = 100;
+var waitTimeBetweenCycles = 75;
 
 var updateSemaphore = false;
 
@@ -46,20 +46,29 @@ window.onload = function () {
         updateSemaphore = false;
     }, waitTimeBetweenCycles);
 
-    document.getElementById("play").addEventListener("click", () => {
-        switch (pause) {
-            case true:
-                document.getElementById("play").innerHTML = "PAUSE";
-                waitTimeBetweenCycles = 100;
-                break;
+    setUpButtons();
+}
 
-            case false:
-                document.getElementById("play").innerHTML = "PLAY"
-                waitTimeBetweenCycles = 10;
-        }
-
-        pause = !pause;
+function setUpButtons() {
+    document.getElementById("random").addEventListener("click", () => {
+        randomizeGrid();
     });
+
+    document.getElementById("pause").addEventListener("click", () => {
+        pause = true;
+    });
+
+    document.getElementById("play").addEventListener("click", () => {
+        pause = false;
+    });
+}
+
+function randomizeGrid() {
+    for (let i = 0; i < gridHeight * gridWidth; i++) {
+        if (Math.round(Math.random()) != cellStates[i]) {
+            registerChange(i);
+        }
+    }
 }
 
 function calculateNextCycle() {
@@ -88,10 +97,6 @@ function calculateCellFate(x, y, id) {
             neighborCount++;
             //console.log(adjacentCells[cell] + " is true. (neighbor of " + id + ") -> " + adjacentCells);
         }
-    }
-
-    if (neighborCount > 0) {
-        //console.log("CELL " + id + " HAS " + neighborCount + " NEIGHBORS");
     }
 
     if (cellStates[id]) { // cell is alive
