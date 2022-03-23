@@ -1,11 +1,15 @@
 var gridHeight = 75;
 var gridWidth = 100;
-var waitTimeBetweenCycles = 1000;
+var waitTimeBetweenCycles = 100;
 
-var cellElements = [];
-var cellContents = [];
+var updateSemaphore = false;
+
+var cellButtonElements = [];
+var cellStates = [];
 
 var changesList = [];
+
+var pause = true;
 
 window.onload = function () {
     const parentElement = document.getElementById("container-table"); // DOM location when buttons will be added
@@ -18,8 +22,8 @@ window.onload = function () {
             button.id = currentID;
             parentElement.appendChild(button); // to add new element to DOM
 
-            cellElements.push(button);
-            cellContents.push(false);
+            cellButtonElements.push(button);
+            cellStates.push(false);
 
             currentID++;
         }
@@ -28,24 +32,42 @@ window.onload = function () {
     }
 
     for (let id = 0; id < gridHeight * gridWidth; id++) {
-        cellElements[id].addEventListener("click", () => {
+        cellButtonElements[id].addEventListener("click", () => {
             cellClick(id);
         })
     }
 
     setInterval(() => {
-        calculateNextCycle();
-        updateGridLights();
+        updateSemaphore = true;
+        if (!pause) {
+            calculateNextCycle();
+        }
+        updateGrid();
+        updateSemaphore = false;
     }, waitTimeBetweenCycles);
+
+    document.getElementById("play").addEventListener("click", () => {
+        switch (pause) {
+            case true:
+                document.getElementById("play").innerHTML = "PAUSE";
+                waitTimeBetweenCycles = 100;
+                break;
+
+            case false:
+                document.getElementById("play").innerHTML = "PLAY"
+                waitTimeBetweenCycles = 10;
+        }
+
+        pause = !pause;
+    });
 }
 
 function calculateNextCycle() {
     let id = 0;
     for (j = 0; j < gridHeight; j++) {
         for (i = 0; i < gridWidth; i++) {
-            if (calculateCellFate(i, j, id) != cellContents[id]) {
-                console.log("CELL " + id + " WILL SWITCH STATE.")
-                switchCellState(id);
+            if (calculateCellFate(i, j, id) != cellStates[id]) {
+                //console.log("CELL " + id + " WILL SWITCH STATE NEXT CYCLE. CURRENTLY " + cellStates[id]);
                 registerChange(id);
             }
             id++;
@@ -55,31 +77,31 @@ function calculateNextCycle() {
 
 function calculateCellFate(x, y, id) {
     if (interventionsList.includes(id)) {
-        return (cellContents[id]);
+        return (cellStates[id]);
     }
 
     adjacentCells = getAdjacentCells(x, y);
 
     let neighborCount = 0;
     for (let cell in adjacentCells) {
-        if (cellContents[adjacentCells[cell]] === true) {
+        if (cellStates[adjacentCells[cell]] === true) {
             neighborCount++;
-            console.log(cell + " is true. (neighbor of " + id + ") ->" + adjacentCells);
+            //console.log(adjacentCells[cell] + " is true. (neighbor of " + id + ") -> " + adjacentCells);
         }
     }
 
     if (neighborCount > 0) {
-        console.log("CELL " + id + " HAS " + neighborCount + " NEIGHBORS");
+        //console.log("CELL " + id + " HAS " + neighborCount + " NEIGHBORS");
     }
 
-    if (neighborCount < 2) {
-        return false; // dies by underpopulation
+    if (cellStates[id]) { // cell is alive
+        if (neighborCount < 2) return false;
+        if (neighborCount > 3) return false;
+        else return true;
     }
-    if (neighborCount === 3) {
-        return true; // survives or becomes alive
-    }
-    if (neighborCount > 3) {
-        return false; // dies by overpopulation
+    else { // cell is dead
+        if (neighborCount === 3) return true;
+        else return false;
     }
 }
 
@@ -102,15 +124,8 @@ var interventionsList = [];
 function cellClick(id) {
     while (updateSemaphore);
     //console.log("cellClicked called for " + id)
-    if (cellContents[id]) {
-        cellContents[id] = false;
-    }
-    else {
-        cellContents[id] = true;
-    }
-
-    registerIntervention(id);
     registerChange(id);
+    registerIntervention(id);
 }
 
 function registerChange(id) {
@@ -121,16 +136,12 @@ function registerIntervention(id) {
     interventionsList.push(id);
 }
 
-var updateSemaphore = false;
-
-function updateGridLights() {
-    updateSemaphore = true;
-
+function updateGrid() {
     //console.log("updadeGrid function called for the following changes: \n" + changesList);
     //console.log("...with the following list of interventions: " + interventionsList);
 
     while (changesList.length > 0) {
-        switchLight(changesList.pop());
+        switchCellStateNow(changesList.pop());
     }
 
     while (interventionsList.length > 0) {
@@ -139,15 +150,11 @@ function updateGridLights() {
 
     //console.log("updateGrid finished resulting with this changes list: \n " + changesList);
     //console.log("updateGrid finished resulting with this interv. list: \n " + interventionsList);
-    updateSemaphore = false;
 }
 
-function switchLight(id) {
-    cellContents[id] ? cellElements[id].style.backgroundColor = "#FCDAB7" : cellElements[id].style.backgroundColor = "";
-}
-
-function switchCellState(id) {
-    cellContents[id] ? cellContents[id] = false : cellContents[id] = true;
+function switchCellStateNow(id) {
+    cellStates[id] ? cellStates[id] = false : cellStates[id] = true;
+    cellStates[id] ? cellButtonElements[id].style.backgroundColor = "#FCDAB7" : cellButtonElements[id].style.backgroundColor = "";
 }
 
 function getCoordinatesByID(targetID) {
@@ -181,12 +188,4 @@ function getIDByCoordinates(inx, iny) {
     }
 
     return (y * gridWidth + x);
-}
-
-function lightUp(arrayOfCellIDs) { // DEBUG-ONLY FUNCTION!
-    for (const cell of arrayOfCellIDs) {
-        cellClick(cell);
-    }
-
-    return;
 }
