@@ -48,3 +48,7 @@ body {
     font-size: 4em;
     color: #FCDAB7;
 }
+
+.btn {
+    border-radius: 10px;
+}

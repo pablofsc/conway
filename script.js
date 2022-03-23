@@ -1,6 +1,6 @@
 var gridHeight = 75;
 var gridWidth = 100;
-var waitTimeBetweenCycles = 75;
+var intervalNumber;
 
 var updateSemaphore = false;
 
@@ -37,30 +37,67 @@ window.onload = function () {
         })
     }
 
-    setInterval(() => {
-        updateSemaphore = true;
-        if (!pause) {
-            calculateNextCycle();
-        }
-        updateGrid();
-        updateSemaphore = false;
-    }, waitTimeBetweenCycles);
-
     setUpButtons();
 }
 
 function setUpButtons() {
+    document.getElementById("wipe").addEventListener("click", () => {
+        wipeGrid();
+        updateGrid();
+    });
+
     document.getElementById("random").addEventListener("click", () => {
         randomizeGrid();
+        updateGrid();
     });
 
     document.getElementById("pause").addEventListener("click", () => {
         pause = true;
+        clearInterval(intervalNumber);
     });
 
     document.getElementById("play").addEventListener("click", () => {
         pause = false;
+
+        clearInterval(intervalNumber);
+        intervalNumber = setInterval(() => {
+            cycle();
+        }, 200);
     });
+
+    document.getElementById("ff").addEventListener("click", () => {
+        pause = false;
+
+        clearInterval(intervalNumber);
+        intervalNumber = setInterval(() => {
+            cycle();
+        }, 17);
+    });
+}
+
+function cycle() {
+    updateSemaphore = true;
+
+    if (!pause) {
+        calculateNextCycle();
+    }
+    updateGrid();
+
+    updateSemaphore = false;
+}
+
+function wipeGrid() {
+    while (changesList.length > 0) {
+        changesList.pop();
+    }
+
+    for (let i = 0; i < gridHeight * gridWidth; i++) {
+        if (cellStates[i] === true) {
+            registerChange(i);
+        }
+    }
+
+    updateGrid();
 }
 
 function randomizeGrid() {
@@ -131,6 +168,9 @@ function cellClick(id) {
     //console.log("cellClicked called for " + id)
     registerChange(id);
     registerIntervention(id);
+    if (pause) {
+        updateGrid();
+    }
 }
 
 function registerChange(id) {
