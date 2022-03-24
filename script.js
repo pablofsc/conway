@@ -190,6 +190,11 @@ function updateGrid() {
     //console.log("updadeGrid function called for the following changes: \n" + changesList);
     //console.log("...with the following list of interventions: " + interventionsList);
 
+    if (changesList.length === 0 && interventionsList.length === 0) {
+        document.getElementById("pause").click();
+        return;
+    }
+
     while (changesList.length > 0) {
         switchCellStateNow(changesList.pop());
     }
@@ -197,8 +202,6 @@ function updateGrid() {
     while (interventionsList.length > 0) {
         interventionsList.pop();
     }
-
-    if (gridIsEmpty()) document.getElementById("pause").click();
 
     //console.log("updateGrid finished resulting with this changes list: \n " + changesList);
     //console.log("updateGrid finished resulting with this interv. list: \n " + interventionsList);
