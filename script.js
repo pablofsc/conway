@@ -51,6 +51,11 @@ function setUpButtons() {
         updateGrid();
     });
 
+    document.getElementById("advanceOneCycle").addEventListener("click", () => {
+        calculateNextCycle();
+        updateGrid();
+    });
+
     document.getElementById("pause").addEventListener("click", () => {
         pause = true;
         clearInterval(intervalNumber);
@@ -70,8 +75,8 @@ function setUpButtons() {
 
         clearInterval(intervalNumber);
         intervalNumber = setInterval(() => {
-            cycle();
-        }, 17);
+            setTimeout(cycle, 0);
+        }, 50);
     });
 }
 
@@ -193,6 +198,8 @@ function updateGrid() {
         interventionsList.pop();
     }
 
+    if (gridIsEmpty()) document.getElementById("pause").click();
+
     //console.log("updateGrid finished resulting with this changes list: \n " + changesList);
     //console.log("updateGrid finished resulting with this interv. list: \n " + interventionsList);
 }
@@ -233,4 +240,12 @@ function getIDByCoordinates(inx, iny) {
     }
 
     return (y * gridWidth + x);
+}
+
+function gridIsEmpty() {
+    for (let i = 0; i < gridHeight * gridWidth; i++) {
+        if (cellStates[i] === true) return false;
+    }
+
+    return true;
 }
