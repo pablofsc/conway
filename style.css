@@ -46,15 +46,12 @@ body {
     padding: 20px;
     border-radius: 20px;
     line-height: 0;
-
-    width: auto;
 }
 
 .pageTitle {
-    font-family: 'Teko', sans-serif;
+    font-family: 'Oswald', sans-serif;
     font-size: 3em;
     color: #FCDAB7;
-    padding-top: 15px;
 }
 
 .btn {

@@ -1,5 +1,5 @@
 var gridHeight = 75;
-var gridWidth = 100;
+var gridWidth = 128;
 var intervalNumber;
 
 var updateSemaphore = false;
