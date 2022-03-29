@@ -47,7 +47,7 @@ function setUpButtons() {
     });
 
     document.getElementById("random").addEventListener("click", () => {
-        randomizeGrid();
+        randomizeGrid(document.getElementById("randomizePercentage").value);
         updateGrid();
     });
 
@@ -105,9 +105,16 @@ function wipeGrid() {
     updateGrid();
 }
 
-function randomizeGrid() {
+function randomizeGrid(randomizePercentage) {
     for (let i = 0; i < gridHeight * gridWidth; i++) {
-        if (Math.round(Math.random()) != cellStates[i]) {
+        let nextState;
+        if (Math.floor(Math.random() * 100) + 1 > randomizePercentage) {
+            nextState = false;
+        }
+        else {
+            nextState = true;
+        }
+        if (nextState != cellStates[i]) {
             registerChange(i);
         }
     }

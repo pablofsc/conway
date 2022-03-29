@@ -4,6 +4,17 @@ html {
 
 body {
     background-color: inherit;
+
+    animation: fadeInAnimation ease 1.5s;
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+     }
 }
 
 .cell {
@@ -56,4 +67,10 @@ body {
 
 .btn {
     border-radius: 10px;
+}
+
+.buttonGroupCustom {
+    display: flex;
+    align-items: center;
+
 }
