@@ -5,11 +5,14 @@ html {
 body {
     background-color: inherit;
 
-    animation: fadeInAnimation ease 1.5s;
+    animation: fadeInAnimation ease 2s;
 }
 
 @keyframes fadeInAnimation {
     0% {
+        opacity: 0;
+    }
+    25% {
         opacity: 0;
     }
     100% {
@@ -61,7 +64,7 @@ body {
 
 .pageTitle {
     font-family: 'Oswald', sans-serif;
-    font-size: 3em;
+    font-size: 45px;
     color: #FCDAB7;
 }
 
@@ -72,5 +75,25 @@ body {
 .buttonGroupCustom {
     display: flex;
     align-items: center;
+    border: 1px solid #ffc107;
+    border-radius: 12px;
+    padding-left: 10px;
+}
 
+#info {
+    margin-right: 100%;
+}
+
+.expandSeparator {
+    flex-grow: 1;
+}
+
+#random {
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
+    margin-left: 10px;
+}
+
+#randomizePercentage {
+    width: 150px;
 }

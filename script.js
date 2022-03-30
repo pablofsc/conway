@@ -11,6 +11,10 @@ var changesList = [];
 
 var pause = true;
 
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
+
 window.onload = function () {
     const parentElement = document.getElementById("container-table"); // DOM location when buttons will be added
 
@@ -38,6 +42,18 @@ window.onload = function () {
     }
 
     setUpButtons();
+}
+
+function displayInstructions() {
+    alert(
+        "sdofsdfndsjf"
+    );
+}
+
+let shouldAutopause = false;
+
+function switchAutoPause() {
+    shouldAutopause = !shouldAutopause;
 }
 
 function setUpButtons() {
@@ -114,6 +130,7 @@ function randomizeGrid(randomizePercentage) {
         else {
             nextState = true;
         }
+
         if (nextState != cellStates[i]) {
             registerChange(i);
         }
@@ -197,7 +214,7 @@ function updateGrid() {
     //console.log("updadeGrid function called for the following changes: \n" + changesList);
     //console.log("...with the following list of interventions: " + interventionsList);
 
-    if (changesList.length === 0 && interventionsList.length === 0) {
+    if (shouldAutopause && changesList.length === 0 && interventionsList.length === 0) {
         document.getElementById("pause").click();
         return;
     }
