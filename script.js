@@ -10,6 +10,7 @@ var cellStates = [];
 var changesList = [];
 
 var pause = true;
+var infiniteBorders = true;
 
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
@@ -54,6 +55,10 @@ let shouldAutopause = false;
 
 function switchAutoPause() {
     shouldAutopause = !shouldAutopause;
+}
+
+function switchInfiniteBorders() {
+    infiniteBorders = !infiniteBorders;
 }
 
 function setUpButtons() {
@@ -153,6 +158,12 @@ function calculateNextCycle() {
 function calculateCellFate(x, y, id) {
     if (interventionsList.includes(id)) {
         return (cellStates[id]);
+    }
+
+    if (!infiniteBorders) {
+        if (x === 0 || x === gridWidth - 1 || y === 0 || y === gridHeight - 1) {
+            return false;
+        }
     }
 
     adjacentCells = getAdjacentCells(x, y);
