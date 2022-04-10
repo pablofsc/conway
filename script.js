@@ -43,12 +43,17 @@ window.onload = function () {
     }
 
     setUpButtons();
-}
 
-function displayInstructions() {
-    alert(
-        "sdofsdfndsjf"
-    );
+    let language = navigator.language || navigator.userLanguage;
+
+    if (language.includes("pt-")) {
+        document.getElementById("portuguese").checked = true;
+        changeLanguage("pt");
+    }
+    else {
+        document.getElementById("english").checked = true;
+        changeLanguage("en");
+    }
 }
 
 let shouldAutopause = false;
@@ -286,4 +291,80 @@ function gridIsEmpty() {
     }
 
     return true;
+}
+
+function changeLanguage(language) {
+    if (language === "en") {
+        document.getElementById("aboutText").innerHTML =
+            `
+        Conway's Game of Life is a cellular automata devised by mathematician John Conway in 1970.
+        <br>
+        This is a zero-player game, which means the game's evolution is determined by its initial state and
+        a set of rules. This version of the game also allows the user to intervene while it evolves.
+        <br>
+        <br>
+        <br>
+        The state of every cell in the next cycle is determined by the amount of live neighbours it has.
+        Every possible behaviour in this game stems from the following rules:
+        <br>
+        <br>
+        <ul>
+            <li>Any live cell with two or three live neighbours survives.</li>
+            <li>Any dead cell with three live neighbours becomes a live cell.</li>
+            <li>All other cells die or stay dead.</li>
+        </ul>
+        `;
+
+        document.getElementById("modalTitle").innerHTML = `About Conway's Game of Life`;
+
+        document.getElementById("autoPauseLabel").innerHTML = `AUTOPAUSE`;
+        $('#autoPauseTooltip').tooltip().attr('data-original-title', "Automatically pause when screen stabilizes");
+
+        document.getElementById("infiniteBordersLabel").innerHTML = `INFINITE BORDERS`;
+        $('#infiniteBordersTooltip').tooltip().attr('data-original-title', "Enable infinite borders");
+
+        $('#random').tooltip().attr('data-original-title', "Randomize screen (will wipe the current screen)");
+        $('#randomizePercentage').tooltip().attr('data-original-title', "Percentage of live cells on randomization");
+
+        $('#wipe').tooltip().attr('data-original-title', "Wipe screen");
+
+        $('#advanceOneCycle').tooltip().attr('data-original-title', "Advance one cicle");
+    }
+    else if (language === "pt") {
+        document.getElementById("aboutText").innerHTML =
+            `
+        O Jogo de Conway é um autômato celular desenvolvido pelo matemático John Conway em 1970.
+        <br>
+        Trata-se de um jogo sem jogadores, o que quer dizer que a evolução do jogo é determinada pelo seu 
+        estado inicial e por um conjunto de regras. Esta versão do jogo também permite que o usuário 
+        interfira enquanto ele evolui.
+        <br>
+        <br>
+        O estado de cada célula no próximo ciclo é determinado pela quantidade de vizinhos vivos que ela
+        tem.
+        Todo comportamento possível neste jogo advem das seguintes três regras:
+        <br>
+        <br>
+        <ul>
+            <li>Toda célula viva com dois ou três vizinhos vivos sobrevive.</li>
+            <li>Toda célula morta com três vizinhos vivos se torna viva.</li>
+            <li>Todas as outras células morrem ou permanecem mortas.</li>
+        </ul>
+        `;
+
+        document.getElementById("modalTitle").innerHTML = `Sobre o Jogo de Conway`;
+
+        document.getElementById("autoPauseLabel").innerHTML = `PAUSA AUTOMÁTICA`;
+        $('#autoPauseTooltip').tooltip().attr('data-original-title', "Pausar automaticamente quando a tela se estabilizar");
+
+        document.getElementById("infiniteBordersLabel").innerHTML = `BORDAS INFINITAS`;
+        $('#infiniteBordersTooltip').tooltip().attr('data-original-title', "Habilitar bordas infinitas");
+
+        $('#random').tooltip().attr('data-original-title', "Randomizar tela (limpa a tela atual)");
+        $('#randomizePercentage').tooltip().attr('data-original-title', "Porcentagem de células vivas ao randomizar");
+
+        $('#wipe').tooltip().attr('data-original-title', "Limpar tela");
+
+        $('#advanceOneCycle').tooltip().attr('data-original-title', "Avançar um ciclo");
+    }
 }
