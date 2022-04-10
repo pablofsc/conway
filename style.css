@@ -64,17 +64,18 @@ body {
     line-height: 0;
 }
 
-.pageTitle {
+#pageTitle {
     font-family: 'Oswald', sans-serif;
     font-size: 45px;
     color: #FCDAB7;
+    padding: 5px 10px 0px 10px;
 }
 
 .btn {
     border-radius: 10px;
 }
 
-.buttonGroupCustom {
+.buttonWithSlider {
     display: flex;
     align-items: center;
     border: 1px solid #ffc107;
@@ -100,7 +101,7 @@ body {
     width: 150px;
 }
 
-.checkboxLabel {
+.form-check-label {
     color: white;
     font-size: 12px;
     justify-content: center;
