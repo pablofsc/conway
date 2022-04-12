@@ -13,7 +13,7 @@ var pause = true;
 var infiniteBorders = true;
 
 $(function () {
-    $('[data-toggle="tooltip"]').tooltip()
+    $('[data-toggle="tooltip"]').tooltip();
 })
 
 window.onload = function () {
@@ -294,8 +294,8 @@ function gridIsEmpty() {
 }
 
 function changeLanguage(language) {
-    if (language === "en") {
-        document.getElementById("aboutText").innerHTML =
+    if (language === 'en') {
+        $('#aboutText').html(
             `
         Conway's Game of Life is a cellular automata devised by mathematician John Conway in 1970.
         <br>
@@ -313,25 +313,25 @@ function changeLanguage(language) {
             <li>Any dead cell with three live neighbours becomes a live cell.</li>
             <li>All other cells die or stay dead.</li>
         </ul>
-        `;
+        `);
 
-        document.getElementById("modalTitle").innerHTML = `About Conway's Game of Life`;
+        $('#modalTitle').html("About Conway's Game of Life");
 
-        document.getElementById("autoPauseLabel").innerHTML = `AUTOPAUSE`;
-        $('#autoPauseTooltip').tooltip().attr('data-original-title', "Automatically pause when screen stabilizes");
+        $('#autoPauseLabel').html('AUTOPAUSE');
+        $('#autoPauseTooltip').tooltip().attr('data-original-title', 'Automatically pause when screen stabilizes');
 
-        document.getElementById("infiniteBordersLabel").innerHTML = `INFINITE BORDERS`;
-        $('#infiniteBordersTooltip').tooltip().attr('data-original-title', "Enable infinite borders");
+        $('#infiniteBordersLabel').html('INFINITE BORDERS');
+        $('#infiniteBordersTooltip').tooltip().attr('data-original-title', 'Enable infinite borders');
 
-        $('#random').tooltip().attr('data-original-title', "Randomize screen (will wipe the current screen)");
-        $('#randomizePercentage').tooltip().attr('data-original-title', "Percentage of live cells on randomization");
+        $('#random').tooltip().attr('data-original-title', 'Randomize screen (will wipe the current screen)');
+        $('#randomizePercentage').tooltip().attr('data-original-title', 'Percentage of live cells on randomization');
 
-        $('#wipe').tooltip().attr('data-original-title', "Wipe screen");
+        $('#wipe').tooltip().attr('data-original-title', 'Wipe screen');
 
-        $('#advanceOneCycle').tooltip().attr('data-original-title', "Advance one cicle");
+        $('#advanceOneCycle').tooltip().attr('data-original-title', 'Advance one cicle');
     }
-    else if (language === "pt") {
-        document.getElementById("aboutText").innerHTML =
+    else if (language === 'pt') {
+        $('#aboutText').html(
             `
         O Jogo de Conway é um autômato celular desenvolvido pelo matemático John Conway em 1970.
         <br>
@@ -350,21 +350,21 @@ function changeLanguage(language) {
             <li>Toda célula morta com três vizinhos vivos se torna viva.</li>
             <li>Todas as outras células morrem ou permanecem mortas.</li>
         </ul>
-        `;
+        `);
 
-        document.getElementById("modalTitle").innerHTML = `Sobre o Jogo de Conway`;
+        $('#modalTitle').html('Sobre o Jogo de Conway');
 
-        document.getElementById("autoPauseLabel").innerHTML = `PAUSA AUTOMÁTICA`;
-        $('#autoPauseTooltip').tooltip().attr('data-original-title', "Pausar automaticamente quando a tela se estabilizar");
+        $('#autoPauseLabel').html('PAUSA AUTOMÁTICA');
+        $('#autoPauseTooltip').tooltip().attr('data-original-title', 'Pausar automaticamente quando a tela se estabilizar');
 
-        document.getElementById("infiniteBordersLabel").innerHTML = `BORDAS INFINITAS`;
-        $('#infiniteBordersTooltip').tooltip().attr('data-original-title', "Habilitar bordas infinitas");
+        $('#infiniteBordersLabel').html('BORDAS INFINITAS');
+        $('#infiniteBordersTooltip').tooltip().attr('data-original-title', 'Habilitar bordas infinitas');
 
-        $('#random').tooltip().attr('data-original-title', "Randomizar tela (limpa a tela atual)");
-        $('#randomizePercentage').tooltip().attr('data-original-title', "Porcentagem de células vivas ao randomizar");
+        $('#random').tooltip().attr('data-original-title', 'Randomizar tela (limpa a tela atual)');
+        $('#randomizePercentage').tooltip().attr('data-original-title', 'Porcentagem de células vivas ao randomizar');
 
-        $('#wipe').tooltip().attr('data-original-title', "Limpar tela");
+        $('#wipe').tooltip().attr('data-original-title', 'Limpar tela');
 
-        $('#advanceOneCycle').tooltip().attr('data-original-title', "Avançar um ciclo");
+        $('#advanceOneCycle').tooltip().attr('data-original-title', 'Avançar um ciclo');
     }
 }
