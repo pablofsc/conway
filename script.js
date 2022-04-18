@@ -1,5 +1,5 @@
 var gridHeight;
-var gridWidth = 128;
+var gridWidth;
 var intervalNumber;
 
 var updateSemaphore = false;
@@ -8,20 +8,20 @@ var cellButtonElements = [];
 var cellStates = [];
 
 var changesList = [];
+var interventionsList = [];
 
 var pause = true;
 var infiniteBorders = true;
-let shouldAutopause = false;
+let shouldAutopause = true;
 
 $(function () {
     $('[data-toggle="tooltip"]').tooltip();
 })
 
 window.onload = function () {
-    const parentElement = document.getElementById("container-table");
+    setUpSize();
 
-    gridHeight = ($(document).height() - 180) / 10;
-    //gridWidth = $(document).width() / 10;
+    const parentElement = document.getElementById("container-table");
 
     let currentID = 0;
     for (j = 0; j < gridHeight; j++) {
@@ -37,7 +37,10 @@ window.onload = function () {
             currentID++;
         }
 
-        parentElement.appendChild(document.createElement("br"));
+        let setWidth = gridWidth * 10 + 40; // padding size
+
+        $("#container-table").css("width", setWidth);
+        //parentElement.appendChild(document.createElement("br"));
     }
 
     for (let id = 0; id < gridHeight * gridWidth; id++) {
@@ -57,6 +60,26 @@ window.onload = function () {
     else {
         $("#english").attr("checked", true);
         changeLanguage("en");
+    }
+}
+
+function setUpSize() {
+    let height = $(document).height();
+    let width = $(document).width()
+
+    if (width < 1100) {
+        alert("Window size not supported")
+    }
+
+    gridHeight = Math.round((height - 200) / 10);
+    gridWidth = Math.round((width - 125) / 10);
+
+    if (gridHeight > 100) {
+        gridHeight = 100;
+    }
+
+    if (gridWidth > 150) {
+        gridWidth = 150;
     }
 }
 
@@ -207,8 +230,6 @@ function getAdjacentCells(x, y) {
 
     return (adjacentCells);
 }
-
-var interventionsList = [];
 
 function cellClick(id) {
     while (updateSemaphore);

@@ -21,7 +21,7 @@
 </head>
 
 <body>
-    <div class="container" id="container-all">
+    <div id="container-all">
         <div class="row justify-content-center">
             <div class="container px-2 py-0 w-100" id="container-controls">
                 <div class="row justify-content-between">
@@ -44,7 +44,7 @@
                             <div class="form-check form-switch m-0" data-toggle="tooltip" data-placement="bottom"
                                 id="autoPauseTooltip">
                                 <input class="form-check-input" type="checkbox" id="autoPause"
-                                    onclick="switchAutoPause()">
+                                    onclick="switchAutoPause()" checked>
                                 <label class="form-check-label" id="autoPauseLabel" for="autoPause"></label>
                             </div>
                             <div class="form-check form-switch m-0" data-toggle="tooltip" data-placement="bottom"
@@ -116,7 +116,7 @@
         </div>
 
         <div class="row w-auto">
-            <div class="container text-center" id="container-table">
+            <div class="container text-center d-flex flex-wrap" id="container-table">
                 <!--buttons will be put here through js-->
             </div>
         </div>

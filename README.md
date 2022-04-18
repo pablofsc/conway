@@ -1,4 +1,4 @@
-# conway-w
+# Conway's Game of Life
 
 Live at https://pablofsc.github.io/conway
 

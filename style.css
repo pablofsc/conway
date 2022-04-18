@@ -5,10 +5,12 @@ html {
 
 body {
     background-color: inherit;
+
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: 20px 0 20px 0;
+    align-items: center;
+
+    padding-top: 30px;
 
     animation: fadeInAnimation ease 2s;
 }
@@ -50,7 +52,8 @@ body {
 }
 
 #container-all {
-    width: auto;
+    width: fit-content;
+    padding: 0 50px 0 50px;
 }
 
 #container-controls {
