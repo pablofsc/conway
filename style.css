@@ -4,6 +4,11 @@ html {
 
 body {
     background-color: inherit;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 0 20px 0;
 
     animation: fadeInAnimation ease 2s;
 }
@@ -52,9 +57,7 @@ body {
     background-color: #133B5C;
     padding: 0px;
     border-radius: 20px;
-    margin: 20px 0 20px 0;
-
-    width: inherit;
+    margin: 0 0 20px 0;
 }
 
 #container-table {
