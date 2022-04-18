@@ -1,4 +1,4 @@
-var gridHeight = 75;
+var gridHeight;
 var gridWidth = 128;
 var intervalNumber;
 
@@ -17,7 +17,10 @@ $(function () {
 })
 
 window.onload = function () {
-    const parentElement = document.getElementById("container-table"); // DOM location when buttons will be added
+    const parentElement = document.getElementById("container-table");
+
+    gridHeight = ($(document).height() - 180) / 10;
+    //gridWidth = $(document).width() / 10;
 
     let currentID = 0;
     for (j = 0; j < gridHeight; j++) {
@@ -25,7 +28,7 @@ window.onload = function () {
             let button = document.createElement("button");
             button.classList.add("cell");
             button.id = currentID;
-            parentElement.appendChild(button); // to add new element to DOM
+            parentElement.appendChild(button);
 
             cellButtonElements.push(button);
             cellStates.push(false);
