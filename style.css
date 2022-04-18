@@ -110,3 +110,7 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+.modal {
+    white-space: normal;
+}

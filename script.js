@@ -11,6 +11,7 @@ var changesList = [];
 
 var pause = true;
 var infiniteBorders = true;
+let shouldAutopause = false;
 
 $(function () {
     $('[data-toggle="tooltip"]').tooltip();
@@ -50,16 +51,14 @@ window.onload = function () {
     let language = navigator.language || navigator.userLanguage;
 
     if (language.includes("pt-")) {
-        document.getElementById("portuguese").checked = true;
+        $("#portuguese").attr("checked", true);
         changeLanguage("pt");
     }
     else {
-        document.getElementById("english").checked = true;
+        $("#english").attr("checked", true);
         changeLanguage("en");
     }
 }
-
-let shouldAutopause = false;
 
 function switchAutoPause() {
     shouldAutopause = !shouldAutopause;
@@ -70,27 +69,27 @@ function switchInfiniteBorders() {
 }
 
 function setUpButtons() {
-    document.getElementById("wipe").addEventListener("click", () => {
+    $("#wipe").on("click", () => {
         wipeGrid();
         updateGrid();
     });
 
-    document.getElementById("random").addEventListener("click", () => {
+    $("#random").on("click", () => {
         randomizeGrid(document.getElementById("randomizePercentage").value);
         updateGrid();
     });
 
-    document.getElementById("advanceOneCycle").addEventListener("click", () => {
+    $("#advanceOneCycle").on("click", () => {
         calculateNextCycle();
         updateGrid();
     });
 
-    document.getElementById("pause").addEventListener("click", () => {
+    $("#pause").on("click", () => {
         pause = true;
         clearInterval(intervalNumber);
     });
 
-    document.getElementById("play").addEventListener("click", () => {
+    $("#play").on("click", () => {
         pause = false;
 
         clearInterval(intervalNumber);
@@ -99,7 +98,7 @@ function setUpButtons() {
         }, 200);
     });
 
-    document.getElementById("ff").addEventListener("click", () => {
+    $("#ff").on("click", () => {
         pause = false;
 
         clearInterval(intervalNumber);
@@ -234,7 +233,7 @@ function updateGrid() {
     //console.log("...with the following list of interventions: " + interventionsList);
 
     if (shouldAutopause && changesList.length === 0 && interventionsList.length === 0) {
-        document.getElementById("pause").click();
+        $("#pause").click();
         return;
     }
 
