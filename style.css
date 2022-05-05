@@ -56,7 +56,16 @@ body {
     padding: 0 50px 0 50px;
 }
 
+.container {
+    box-shadow: black 0px 0px 12px inset, black -0px -0px 12px inset;
+}
+
+.btn {
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
 #container-controls {
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
     background-color: #133B5C;
     padding: 0px;
     border-radius: 20px;
