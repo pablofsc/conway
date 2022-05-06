@@ -1,8 +1,9 @@
 var gridHeight;
 var gridWidth;
-var intervalNumber;
 
-var updateSemaphore = false;
+var intervalHandle;
+
+var cycleNowRunning = false;
 
 var cellButtonElements = [];
 var cellStates = [];
@@ -10,7 +11,7 @@ var cellStates = [];
 var changesList = [];
 var interventionsList = [];
 
-var pause = true;
+var paused = true;
 var infiniteBorders = true;
 let shouldAutopause = true;
 
@@ -108,38 +109,41 @@ function setUpButtons() {
     });
 
     $("#pause").on("click", () => {
-        pause = true;
-        clearInterval(intervalNumber);
+        paused = true;
+        clearInterval(intervalHandle);
     });
 
     $("#play").on("click", () => {
-        pause = false;
-
-        clearInterval(intervalNumber);
-        intervalNumber = setInterval(() => {
-            cycle();
-        }, 200);
+        startCycling((1000 / 5));
     });
 
     $("#ff").on("click", () => {
-        pause = false;
-
-        clearInterval(intervalNumber);
-        intervalNumber = setInterval(() => {
-            setTimeout(cycle, 0);
-        }, 50);
+        startCycling(1000 / 30);
     });
 }
 
-function cycle() {
-    updateSemaphore = true;
+function startCycling(cycleDuration) {
+    paused = false;
 
-    if (!pause) {
+    clearInterval(intervalHandle);
+    intervalHandle = setInterval(() => {
+        if (cycleNowRunning) {
+            console.log("Cycles are taking longer than expected");
+            while (cycleNowRunning);
+        }
+        cycle();
+    }, cycleDuration);
+}
+
+function cycle() {
+    cycleNowRunning = true;
+
+    if (!paused) {
         calculateNextCycle();
     }
     updateGrid();
 
-    updateSemaphore = false;
+    cycleNowRunning = false;
 }
 
 function wipeGrid() {
@@ -232,11 +236,11 @@ function getAdjacentCells(x, y) {
 }
 
 function cellClick(id) {
-    while (updateSemaphore);
-    //console.log("cellClicked called for " + id)
+    while (cycleNowRunning);
+    //console.log("cellClick called for " + id)
     registerChange(id);
     registerIntervention(id);
-    if (pause) {
+    if (paused) {
         updateGrid();
     }
 }
