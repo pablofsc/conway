@@ -16,7 +16,11 @@ var infiniteBorders = true;
 let shouldAutopause = true;
 
 $(function () {
-    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
+})
+
+$('[data-toggle="tooltip"]').on('mouseleave', function () {
+    $(this).tooltip('hide')
 })
 
 window.onload = function () {
